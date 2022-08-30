@@ -13,18 +13,27 @@ export default function SinglePsot(props) {
     )
 }
 export async function getStaticPaths() {
+    const allPsots = await axios.get("https://jsonplaceholder.typicode.com/posts");
+    const allPostsData = await allPsots.data;
+    const paths = allPostsData.map(p => {
+        return {
+            params: { postId: `${p.id}` }
+        }
+    })
     return {
-        paths: [
-            {
-                params: { postId: '1' }
-            },
-            {
-                params: { postId: '2' }
-            },
-            {
-                params: { postId: '3' }
-            },
-        ],
+        //manually adding all the possible postId
+        // paths: [
+        //     {
+        //         params: { postId: '1' }
+        //     },
+        //     {
+        //         params: { postId: '2' }
+        //     },
+        //     {
+        //         params: { postId: '3' }
+        //     },
+        // ],
+        paths,
         fallback: false,
     }
 }
