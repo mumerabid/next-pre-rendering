@@ -1,7 +1,14 @@
 import React from 'react'
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function SinglePsot(props) {
+    const router = useRouter();
+    if (router.isFallback) {
+        return (
+            <div>is loading</div>
+        )
+    }
     console.log(props)
     return (
         <div>
@@ -13,28 +20,28 @@ export default function SinglePsot(props) {
     )
 }
 export async function getStaticPaths() {
-    const allPsots = await axios.get("https://jsonplaceholder.typicode.com/posts");
-    const allPostsData = await allPsots.data;
-    const paths = allPostsData.map(p => {
-        return {
-            params: { postId: `${p.id}` }
-        }
-    })
+    // const allPsots = await axios.get("https://jsonplaceholder.typicode.com/posts");
+    // const allPostsData = await allPsots.data;
+    // const paths = allPostsData.map(p => {
+    //     return {
+    //         params: { postId: `${p.id}` }
+    //     }
+    // })
     return {
         //manually adding all the possible postId
-        // paths: [
-        //     {
-        //         params: { postId: '1' }
-        //     },
-        //     {
-        //         params: { postId: '2' }
-        //     },
-        //     {
-        //         params: { postId: '3' }
-        //     },
-        // ],
-        paths,
-        fallback: false,
+        paths: [
+            {
+                params: { postId: '1' }
+            },
+            {
+                params: { postId: '2' }
+            },
+            {
+                params: { postId: '3' }
+            },
+        ],
+        // paths,
+        fallback: true,
     }
 }
 export async function getStaticProps(context) {
