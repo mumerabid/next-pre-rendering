@@ -4,7 +4,6 @@ export default function Home() {
   return (
     <div>
       Next Pre Rendering
-      <Users />
     </div>
 
   )

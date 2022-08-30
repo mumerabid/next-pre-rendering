@@ -1,7 +1,6 @@
 import axios from "axios";
 import User from "../components/user";
 export default function Users(props) {
-    console.log(props.data);
     return (
         <>
             <div>users List</div>
