@@ -1,10 +1,10 @@
-import Users from './users';
-
+import Link from "next/link"
 export default function Home() {
   return (
     <div>
-      Next Pre Rendering
+      <Link href="/posts">
+        show Posts
+      </Link>
     </div>
-
   )
 }
