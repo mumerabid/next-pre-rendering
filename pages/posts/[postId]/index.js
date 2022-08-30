@@ -47,12 +47,17 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
     const { params } = context;
     console.log(params)
-    const SinglePsot = await axios.get(`https://jsonplaceholder.typicode.com/posts/${params.postId}`)
-    const SinglePsotData = SinglePsot.data;
-    console.log(SinglePsotData)
-    return {
-        props: {
-            data: SinglePsotData
+    try {
+        const singlePost = await axios.get(`https://jsonplaceholder.typicode.com/posts/${params.postId}`);
+        const singlePostData = await singlePost.data;
+        return {
+            props: {
+                data: singlePostData
+            }
+        }
+    } catch (error) {
+        return {
+            notFound: true,
         }
     }
 
