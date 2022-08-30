@@ -1,14 +1,14 @@
 import React from 'react'
 import axios from 'axios';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 export default function SinglePsot(props) {
-    const router = useRouter();
-    if (router.isFallback) {
-        return (
-            <div>is loading</div>
-        )
-    }
+    // const router = useRouter();
+    // if (router.isFallback) {
+    //     return (
+    //         <div>is loading</div>
+    //     )
+    // }
     console.log(props)
     return (
         <div>
@@ -41,12 +41,13 @@ export async function getStaticPaths() {
             },
         ],
         // paths,
-        fallback: true,
+        fallback: 'blocking',
     }
 }
 export async function getStaticProps(context) {
     const { params } = context;
     console.log(params)
+
     try {
         const singlePost = await axios.get(`https://jsonplaceholder.typicode.com/posts/${params.postId}`);
         const singlePostData = await singlePost.data;
@@ -60,5 +61,4 @@ export async function getStaticProps(context) {
             notFound: true,
         }
     }
-
 }
